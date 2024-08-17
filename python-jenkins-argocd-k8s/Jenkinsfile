@@ -48,10 +48,10 @@ pipeline {
                     sh '''
                     
                         BUILD_NUMBER=${BUILD_NUMBER}
-                        sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deploy.yaml
+                        sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" python-jenkins-argocd-k8s/Deploy.yaml
                         git add deploy.yaml
                         git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                        git push https://github.com/Maggiyerra/Jenkins-Zero-To-Hero.git HEAD:main
+                        git push https://${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${GIT_REPO_NAME} head:main
                     '''
             }
         }
