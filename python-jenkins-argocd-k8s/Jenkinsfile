@@ -44,14 +44,14 @@ pipeline {
                  GIT_USER_NAME = "Maggiyerra"
         }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'Github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                withCredentials([usernamePassword(credentialsId: 'Github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME', variable: 'GITHUB_TOKEN')]) {
                     sh '''
                     
                         BUILD_NUMBER=${BUILD_NUMBER}
                         sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" python-jenkins-argocd-k8s/Deploy.yaml
                         git add python-jenkins-argocd-k8s/Deploy.yaml
                         git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                        git push https://${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${GIT_REPO_NAME} head:main
+                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USERNAME}/${GIT_REPO_NAME} head:main
                     '''
             }
         }
