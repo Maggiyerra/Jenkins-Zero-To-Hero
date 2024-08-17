@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: todo
-        image: maggi19/python-cicd:v1
+        image: maggi19/python-cicd:replaceImageTag
         ports:
         - containerPort: 8000
